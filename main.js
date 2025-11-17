@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // 2. On lance la requête (asynchrone) pour lire le fichier data.json
-    fetch('./data.json')
+    fetch('http://127.0.0.1:8000/api/status')
         .then(response => response.json()) // 3. On convertit la réponse en objet JSON
         .then(data => {
             // 4. Cette partie s'exécute quand les données sont arrivées
@@ -25,6 +25,13 @@ document.addEventListener('DOMContentLoaded', () => {
             // On met à jour son contenu avec la donnée du JSON
             // Note : data.srv01 correspond à la clé dans data.json
             serveurElement.textContent = data.srv01;
+            
+            // On ajoute la couleur selon le statut
+            if (data.srv01 === 'En Ligne') {
+                serveurElement.style.color = 'green';
+            } else {
+                serveurElement.style.color = 'red';
+            }
 
 
             // 6. MISE À JOUR DE LA CAMÉRA (CAM-01)
@@ -35,6 +42,30 @@ document.addEventListener('DOMContentLoaded', () => {
             // On met à jour son contenu
             // Note : data.cam01 correspond à la clé dans data.json
             cameraElement.textContent = data.cam01;
+            
+            // On ajoute la couleur selon le statut
+            if (data.cam01 === 'En Ligne') {
+                cameraElement.style.color = 'green';
+            } else {
+                cameraElement.style.color = 'red';
+            }
+
+
+            // 7. MISE À JOUR DU PARE-FEU (FW-01)
+            // On "attrape" la cible HTML
+            // Note : 'statut-pare-feu' doit correspondre à l'id du HTML
+            const pareFeuElement = document.getElementById('statut-pare-feu');
+           
+            // On met à jour son contenu
+            // Note : data.fw01 correspond à la clé dans data.json
+            pareFeuElement.textContent = data.fw01;
+            
+            // On ajoute la couleur selon le statut
+            if (data.fw01 === 'En Ligne') {
+                pareFeuElement.style.color = 'green';
+            } else {
+                pareFeuElement.style.color = 'red';
+            }
         });
 
 
